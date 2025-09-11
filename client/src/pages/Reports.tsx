@@ -1,9 +1,23 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, FileText, Calendar, TrendingUp, Users, MapPin } from "lucide-react";
+import { Download, FileText, Calendar, TrendingUp, Users, MapPin, FileSpreadsheet, FileDown, BarChart3, Clock } from "lucide-react";
+import { downloadCSV, downloadPDF, getSurveyData } from "@/utils/reportUtils";
+import TripsByRegionChart from "@/components/charts/TripsByRegionChart";
 
 export default function Reports() {
+  const surveyData = getSurveyData();
+
+  const handleCSVDownload = () => {
+    downloadCSV();
+    console.log('Survey data CSV download initiated');
+  };
+
+  const handlePDFDownload = () => {
+    downloadPDF();
+    console.log('Survey data PDF download initiated');
+  };
+
   const reports = [
     {
       id: 1,
@@ -93,32 +107,121 @@ export default function Reports() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Reports</h1>
-          <p className="text-muted-foreground">
-            Generate and access comprehensive data reports
-          </p>
-        </div>
-        <Button>
-          <FileText className="h-4 w-4 mr-2" />
-          Create Report
-        </Button>
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-2">
+          Data Reports
+        </h1>
+        <p className="text-blue-600 text-lg font-medium">
+          Generate and access comprehensive survey and analytics reports ✨
+        </p>
       </div>
+
+      {/* Survey Data Downloads */}
+      <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center space-x-2 text-blue-900">
+                <FileDown className="h-5 w-5" />
+                <span>Survey Data Export</span>
+              </CardTitle>
+              <CardDescription className="text-blue-600">
+                Download comprehensive survey data with summary statistics
+              </CardDescription>
+            </div>
+            <div className="flex space-x-2">
+              <Button 
+                onClick={handleCSVDownload}
+                variant="outline"
+                className="hover:bg-blue-50 border-blue-200 text-blue-700"
+              >
+                <FileSpreadsheet className="h-4 w-4 mr-2" />
+                CSV
+              </Button>
+              <Button 
+                onClick={handlePDFDownload}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
+              >
+                <FileText className="h-4 w-4 mr-2" />
+                PDF
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {/* Summary Stats */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <BarChart3 className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Total Trips</h3>
+              </div>
+              <div className="text-2xl font-bold text-blue-900">{surveyData.tripCount.toLocaleString()}</div>
+              <p className="text-sm text-blue-700">Survey responses recorded</p>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <Clock className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Avg Duration</h3>
+              </div>
+              <div className="text-2xl font-bold text-blue-900">{surveyData.averageDuration} min</div>
+              <p className="text-sm text-blue-700">Average trip time</p>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <MapPin className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Top Mode</h3>
+              </div>
+              <div className="text-2xl font-bold text-blue-900">Car</div>
+              <p className="text-sm text-blue-700">{surveyData.modeShare.car}% share</p>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Top Region</h3>
+              </div>
+              <div className="text-2xl font-bold text-blue-900">Southeast</div>
+              <p className="text-sm text-blue-700">{surveyData.regionalData.southeast.toLocaleString()} trips</p>
+            </div>
+          </div>
+          
+          {/* Regional Chart */}
+          <Card className="bg-white border-blue-200">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2 text-blue-900">
+                <BarChart3 className="h-5 w-5" />
+                <span>Trips by Region</span>
+              </CardTitle>
+              <CardDescription className="text-blue-600">
+                Geographic distribution of survey responses
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[350px]">
+                <TripsByRegionChart />
+              </div>
+            </CardContent>
+          </Card>
+        </CardContent>
+      </Card>
 
       {/* Quick Stats */}
       <div className="grid gap-4 md:grid-cols-3">
         {quickReports.map((report, index) => {
           const Icon = report.icon;
           return (
-            <Card key={index}>
+            <Card key={index} className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">{report.title}</CardTitle>
-                <Icon className="h-4 w-4 text-muted-foreground" />
+                <CardTitle className="text-sm font-medium text-blue-900">{report.title}</CardTitle>
+                <Icon className="h-4 w-4 text-blue-600" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{report.value}</div>
-                <div className="flex items-center text-xs text-muted-foreground mt-1">
+                <div className="text-2xl font-bold text-blue-800">{report.value}</div>
+                <div className="flex items-center text-xs text-blue-600 mt-1">
                   <span className="text-green-600 font-medium mr-1">{report.change}</span>
                   {report.description}
                 </div>
