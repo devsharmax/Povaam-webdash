@@ -3,14 +3,62 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Blue-White Theme Colors */
+    --background: 248 250 252; /* slate-50 - Very light blue-white */
+    --foreground: 15 23 42; /* slate-900 - Deep blue-gray text */
+    --card: 255 255 255; /* Pure white cards */
+    --card-foreground: 15 23 42; /* slate-900 */
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
+    --primary: 29 78 216; /* blue-700 - Beautiful blue primary */
+    --primary-foreground: 248 250 252; /* slate-50 */
+    --secondary: 241 245 249; /* slate-100 - Light blue-gray */
+    --secondary-foreground: 30 41 59; /* slate-700 */
+    --muted: 241 245 249; /* slate-100 */
+    --muted-foreground: 100 116 139; /* slate-500 */
+    --accent: 219 234 254; /* blue-100 - Light blue accent */
+    --accent-foreground: 30 58 138; /* blue-800 */
+    --destructive: 220 38 38; /* red-600 */
+    --destructive-foreground: 248 250 252;
+    --border: 226 232 240; /* slate-200 - Light blue-gray borders */
+    --input: 226 232 240;
+    --ring: 29 78 216; /* blue-700 - Focus rings */
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 15 23 42; /* slate-900 */
+    --foreground: 248 250 252; /* slate-50 */
+    --card: 30 41 59; /* slate-700 */
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 59 130 246; /* blue-500 */
+    --primary-foreground: 15 23 42;
+    --secondary: 51 65 85; /* slate-600 */
+    --secondary-foreground: 248 250 252;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184; /* slate-400 */
+    --accent: 51 65 85;
+    --accent-foreground: 248 250 252;
+    --destructive: 239 68 68; /* red-500 */
+    --destructive-foreground: 248 250 252;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 59 130 246;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased text-foreground;
     margin: 0;
     padding: 0;
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, #e0f2fe 50%, hsl(var(--background)) 100%);
+    min-height: 100vh;
   }
 }
 
