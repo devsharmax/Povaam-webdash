@@ -1,6 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Activity, Users, TrendingUp, MapPin } from "lucide-react";
+import { Users, FileCheck, Clock, Car } from "lucide-react";
+import TripsByDayChart from "@/components/charts/TripsByDayChart";
+import TripPurposeChart from "@/components/charts/TripPurposeChart";
 
 export default function Dashboard() {
   return (
@@ -16,7 +18,46 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Surveys Completed</CardTitle>
+            <FileCheck className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">1,847</div>
+            <p className="text-xs text-muted-foreground">
+              +18% from last month
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Average Trip Duration</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">24.5 min</div>
+            <p className="text-xs text-muted-foreground">
+              -2.1 min from last month
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Most Common Mode of Transport</CardTitle>
+            <Car className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">Private Car</div>
+            <p className="text-xs text-muted-foreground">
+              43% of all trips
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -26,43 +67,31 @@ export default function Dashboard() {
             </p>
           </CardContent>
         </Card>
+      </div>
 
+      {/* Charts Section */}
+      <div className="grid gap-4 md:grid-cols-2">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Trips</CardTitle>
-            <MapPin className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle>Trips Per Day</CardTitle>
+            <CardDescription>Number of trips recorded in the last 7 days</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">145</div>
-            <p className="text-xs text-muted-foreground">
-              +8% from last week
-            </p>
+            <div className="h-[300px]">
+              <TripsByDayChart />
+            </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Revenue</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          <CardHeader>
+            <CardTitle>Trip Purpose Distribution</CardTitle>
+            <CardDescription>Breakdown of trip purposes across all users</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231</div>
-            <p className="text-xs text-muted-foreground">
-              +20% from last month
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Activity</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+573</div>
-            <p className="text-xs text-muted-foreground">
-              +15% from yesterday
-            </p>
+            <div className="h-[300px]">
+              <TripPurposeChart />
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -78,21 +107,21 @@ export default function Dashboard() {
             <div className="flex items-center space-x-4">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium">New user registered</p>
+                <p className="text-sm font-medium">New survey completed</p>
                 <p className="text-xs text-muted-foreground">2 minutes ago</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium">Trip booking completed</p>
+                <p className="text-sm font-medium">Trip data synchronized</p>
                 <p className="text-xs text-muted-foreground">5 minutes ago</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
               <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium">System maintenance scheduled</p>
+                <p className="text-sm font-medium">Weekly report generated</p>
                 <p className="text-xs text-muted-foreground">1 hour ago</p>
               </div>
             </div>
@@ -110,7 +139,7 @@ export default function Dashboard() {
               <Badge variant="outline">Available</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm">User Management</span>
+              <span className="text-sm">Survey Analysis</span>
               <Badge variant="outline">Active</Badge>
             </div>
             <div className="flex items-center justify-between">
