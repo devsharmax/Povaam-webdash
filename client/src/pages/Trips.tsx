@@ -1,153 +1,196 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Plus, MapPin, Calendar, Users } from "lucide-react";
+import { Clock, TrendingUp, TrendingDown, Car, Bus, Train } from "lucide-react";
+import TripFilters from "@/components/TripFilters";
+import TravelTimeByHourChart from "@/components/charts/TravelTimeByHourChart";
+import TransportModeChart from "@/components/charts/TransportModeChart";
 
 export default function Trips() {
-  const trips = [
-    {
-      id: 1,
-      title: "Tokyo Adventure",
-      destination: "Tokyo, Japan",
-      date: "2024-03-15",
-      participants: 4,
-      status: "active",
-      duration: "7 days"
-    },
-    {
-      id: 2,
-      title: "European Explorer",
-      destination: "Paris, France",
-      date: "2024-04-20",
-      participants: 2,
-      status: "planned",
-      duration: "10 days"
-    },
-    {
-      id: 3,
-      title: "Tropical Escape",
-      destination: "Bali, Indonesia",
-      date: "2024-02-10",
-      participants: 6,
-      status: "completed",
-      duration: "5 days"
-    },
-    {
-      id: 4,
-      title: "Mountain Retreat",
-      destination: "Swiss Alps",
-      date: "2024-05-01",
-      participants: 3,
-      status: "planned",
-      duration: "8 days"
-    }
-  ];
+  const [filters, setFilters] = useState({
+    dateFrom: '',
+    dateTo: '',
+    city: '',
+    region: ''
+  });
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "active":
-        return <Badge className="bg-green-100 text-green-800">Active</Badge>;
-      case "planned":
-        return <Badge className="bg-blue-100 text-blue-800">Planned</Badge>;
-      case "completed":
-        return <Badge className="bg-gray-100 text-gray-800">Completed</Badge>;
-      default:
-        return <Badge variant="outline">{status}</Badge>;
-    }
+  const handleFiltersChange = (newFilters: typeof filters) => {
+    setFilters(newFilters);
+    console.log('Filters updated:', newFilters);
+    // Here you would typically update the charts with filtered data
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Trips</h1>
-          <p className="text-muted-foreground">
-            Manage and track all travel plans and activities
-          </p>
-        </div>
-        <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          New Trip
-        </Button>
+      {/* Page Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-2">
+          Trip Analytics
+        </h1>
+        <p className="text-blue-600 text-lg font-medium">
+          Analyze travel patterns and transportation data ✨
+        </p>
       </div>
 
-      {/* Trip Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Active Trips</CardTitle>
+      {/* Filters */}
+      <TripFilters onFiltersChange={handleFiltersChange} />
+
+      {/* Key Metrics */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-blue-900">Total Trips</CardTitle>
+            <div className="flex items-center space-x-1">
+              <Car className="h-4 w-4 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1</div>
-            <p className="text-xs text-muted-foreground">Currently in progress</p>
+            <div className="text-2xl font-bold text-blue-800">12,847</div>
+            <div className="flex items-center space-x-1 text-xs text-blue-600">
+              <TrendingUp className="h-3 w-3 text-green-500" />
+              <span className="text-green-500">+8.2%</span>
+              <span>from last month</span>
+            </div>
           </CardContent>
         </Card>
-        
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Planned Trips</CardTitle>
+
+        <Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-blue-900">Avg Travel Time</CardTitle>
+            <div className="flex items-center space-x-1">
+              <Clock className="h-4 w-4 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
-            <p className="text-xs text-muted-foreground">Upcoming adventures</p>
+            <div className="text-2xl font-bold text-blue-800">28.5 min</div>
+            <div className="flex items-center space-x-1 text-xs text-blue-600">
+              <TrendingDown className="h-3 w-3 text-orange-500" />
+              <span className="text-orange-500">-1.3 min</span>
+              <span>from last month</span>
+            </div>
           </CardContent>
         </Card>
-        
-        <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Completed</CardTitle>
+
+        <Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-blue-900">Most Used Transport</CardTitle>
+            <div className="flex items-center space-x-1">
+              <Car className="h-4 w-4 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1</div>
-            <p className="text-xs text-muted-foreground">Successfully finished</p>
+            <div className="text-2xl font-bold text-blue-800">Private Car</div>
+            <p className="text-xs text-blue-600">
+              38% of all trips
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-blue-900">Rush Hour Peak</CardTitle>
+            <div className="flex items-center space-x-1">
+              <Clock className="h-4 w-4 text-blue-600" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-blue-800">8:00 AM</div>
+            <div className="flex items-center space-x-1 text-xs text-blue-600">
+              <TrendingUp className="h-3 w-3 text-red-500" />
+              <span className="text-red-500">+15 min</span>
+              <span>delay avg</span>
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Trips List */}
-      <Card>
+      {/* Charts Section */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center space-x-2 text-blue-900">
+                  <Clock className="h-5 w-5" />
+                  <span>Travel Time by Hour</span>
+                </CardTitle>
+                <CardDescription className="text-blue-600">
+                  Average travel duration throughout the day
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[350px]">
+              <TravelTimeByHourChart />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center space-x-2 text-blue-900">
+                  <div className="flex space-x-1">
+                    <Car className="h-4 w-4" />
+                    <Bus className="h-4 w-4" />
+                    <Train className="h-4 w-4" />
+                  </div>
+                  <span>Transport Mode Share</span>
+                </CardTitle>
+                <CardDescription className="text-blue-600">
+                  Distribution of transportation methods used
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[350px]">
+              <TransportModeChart />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Insights Section */}
+      <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
         <CardHeader>
-          <CardTitle>All Trips</CardTitle>
-          <CardDescription>Complete overview of your travel portfolio</CardDescription>
+          <CardTitle className="text-blue-900">Key Insights</CardTitle>
+          <CardDescription className="text-blue-600">
+            Transportation patterns and trends from the data
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {trips.map((trip) => (
-              <div key={trip.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
-                <div className="flex items-center space-x-4">
-                  <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <MapPin className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="font-medium">{trip.title}</h3>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <div className="flex items-center space-x-1">
-                        <MapPin className="h-3 w-3" />
-                        <span>{trip.destination}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="h-3 w-3" />
-                        <span>{new Date(trip.date).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Users className="h-3 w-3" />
-                        <span>{trip.participants} participants</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <div className="text-right">
-                    <div className="text-sm font-medium">{trip.duration}</div>
-                    <div className="text-xs text-muted-foreground">Duration</div>
-                  </div>
-                  {getStatusBadge(trip.status)}
-                  <Button variant="ghost" size="sm">
-                    View Details
-                  </Button>
-                </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <Clock className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Peak Hours</h3>
               </div>
-            ))}
+              <p className="text-sm text-blue-700">
+                Morning rush (7-9 AM) and evening rush (5-7 PM) show highest travel times, with up to 15 minutes additional delay.
+              </p>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <Car className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Transport Preference</h3>
+              </div>
+              <p className="text-sm text-blue-700">
+                Private cars dominate at 38% share, followed by public bus at 22%. Walking accounts for 15% of trips.
+              </p>
+            </div>
+            
+            <div className="p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200">
+              <div className="flex items-center space-x-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <h3 className="font-semibold text-blue-800">Growth Trend</h3>
+              </div>
+              <p className="text-sm text-blue-700">
+                Trip volume increased 8.2% this month, while average travel time decreased by 1.3 minutes due to route optimizations.
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
