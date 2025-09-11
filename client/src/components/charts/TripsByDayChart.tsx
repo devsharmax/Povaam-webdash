@@ -105,11 +105,14 @@ export default function TripsByDayChart() {
     datasets: [
       {
         data: tripsData,
-        backgroundColor: 'hsl(var(--primary))',
-        borderColor: 'hsl(var(--primary))',
-        borderWidth: 1,
-        borderRadius: 4,
+        backgroundColor: 'rgba(59, 130, 246, 0.8)', // blue-500 with transparency
+        borderColor: 'rgb(29, 78, 216)', // blue-700 
+        borderWidth: 2,
+        borderRadius: 8,
         borderSkipped: false,
+        hoverBackgroundColor: 'rgba(37, 99, 235, 0.9)', // blue-600 with transparency
+        hoverBorderColor: 'rgb(29, 78, 216)',
+        hoverBorderWidth: 3,
       },
     ],
   };

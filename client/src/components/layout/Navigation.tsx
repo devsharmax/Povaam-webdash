@@ -37,7 +37,7 @@ function NavigationItems({ onItemClick }: { onItemClick?: () => void }) {
                 "flex items-center space-x-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ease-in-out group",
                 isActive
                   ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg transform scale-105 border border-blue-400"
-                  : "text-blue-700 hover:text-blue-900 hover:bg-gradient-to-r hover:from-blue-100 hover:to-blue-200 hover:shadow-md hover:transform hover:scale-102 border border-transparent hover:border-blue-300"
+                  : "text-blue-700 hover:text-blue-900 hover:bg-gradient-to-r hover:from-blue-100 hover:to-blue-200 hover:shadow-md hover:transform hover:scale-[1.02] border border-transparent hover:border-blue-300"
               )
             }
           >

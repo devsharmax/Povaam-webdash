@@ -15,20 +15,22 @@ export default function TripPurposeChart() {
       {
         data: [35, 20, 15, 25, 5], // Sample data - replace with actual data from your API
         backgroundColor: [
-          'hsl(var(--chart-1))',
-          'hsl(var(--chart-2))',
-          'hsl(var(--chart-3))',
-          'hsl(var(--chart-4))',
-          'hsl(var(--chart-5))',
+          'rgba(29, 78, 216, 0.8)', // blue-700
+          'rgba(59, 130, 246, 0.8)', // blue-500
+          'rgba(96, 165, 250, 0.8)', // blue-400
+          'rgba(147, 197, 253, 0.8)', // blue-300
+          'rgba(191, 219, 254, 0.8)', // blue-200
         ],
         borderColor: [
-          'hsl(var(--chart-1))',
-          'hsl(var(--chart-2))',
-          'hsl(var(--chart-3))',
-          'hsl(var(--chart-4))',
-          'hsl(var(--chart-5))',
+          'rgb(29, 78, 216)', // blue-700
+          'rgb(59, 130, 246)', // blue-500
+          'rgb(96, 165, 250)', // blue-400
+          'rgb(147, 197, 253)', // blue-300
+          'rgb(191, 219, 254)', // blue-200
         ],
         borderWidth: 2,
+        hoverBorderWidth: 3,
+        hoverOffset: 10,
       },
     ],
   };

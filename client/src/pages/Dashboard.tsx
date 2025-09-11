@@ -22,17 +22,19 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome to your data dashboard overview
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 bg-clip-text text-transparent mb-2">
+          Dashboard
+        </h1>
+        <p className="text-blue-600 text-lg font-medium">
+          Welcome to your beautiful data dashboard overview ✨
         </p>
       </div>
 
       {/* Interactive Stats Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card 
-          className="cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 hover:bg-accent/5"
+          className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50"
           onMouseEnter={() => setHoveredCard('surveys')}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCardClick('surveys')}
@@ -55,7 +57,7 @@ export default function Dashboard() {
         </Card>
 
         <Card 
-          className="cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 hover:bg-accent/5"
+          className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50"
           onMouseEnter={() => setHoveredCard('duration')}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCardClick('duration')}
@@ -78,7 +80,7 @@ export default function Dashboard() {
         </Card>
 
         <Card 
-          className="cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 hover:bg-accent/5"
+          className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50"
           onMouseEnter={() => setHoveredCard('transport')}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCardClick('transport')}
@@ -99,7 +101,7 @@ export default function Dashboard() {
         </Card>
 
         <Card 
-          className="cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-105 hover:bg-accent/5"
+          className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 hover:scale-105 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50"
           onMouseEnter={() => setHoveredCard('users')}
           onMouseLeave={() => setHoveredCard(null)}
           onClick={() => handleCardClick('users')}
@@ -125,7 +127,7 @@ export default function Dashboard() {
       {/* Interactive Charts Section */}
       <div className="grid gap-4 md:grid-cols-2">
         <Card 
-          className={`group transition-all duration-200 hover:shadow-lg ${selectedChart === 'bar' ? 'ring-2 ring-primary' : ''}`}
+          className={`group cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50 ${selectedChart === 'bar' ? 'ring-2 ring-blue-400 shadow-blue-200' : ''}`}
           onClick={() => setSelectedChart(selectedChart === 'bar' ? null : 'bar')}
         >
           <CardHeader className="cursor-pointer">
@@ -155,9 +157,9 @@ export default function Dashboard() {
               <TripsByDayChart />
             </div>
             {selectedChart === 'bar' && (
-              <div className="mt-4 p-3 bg-accent/50 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  Click on bars to see detailed trip information for that day. 
+              <div className="mt-4 p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200 shadow-sm">
+                <p className="text-sm text-blue-800 font-medium">
+                  ✨ Click on bars to see detailed trip information for that day. 
                   Peak activity was yesterday with 67 trips recorded.
                 </p>
               </div>
@@ -166,7 +168,7 @@ export default function Dashboard() {
         </Card>
 
         <Card 
-          className={`group transition-all duration-200 hover:shadow-lg ${selectedChart === 'pie' ? 'ring-2 ring-primary' : ''}`}
+          className={`group cursor-pointer transition-all duration-200 hover:shadow-xl hover:shadow-blue-100 bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50 ${selectedChart === 'pie' ? 'ring-2 ring-blue-400 shadow-blue-200' : ''}`}
           onClick={() => setSelectedChart(selectedChart === 'pie' ? null : 'pie')}
         >
           <CardHeader className="cursor-pointer">
@@ -196,9 +198,9 @@ export default function Dashboard() {
               <TripPurposeChart />
             </div>
             {selectedChart === 'pie' && (
-              <div className="mt-4 p-3 bg-accent/50 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  Click on pie segments to filter data by trip purpose. 
+              <div className="mt-4 p-4 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border border-blue-200 shadow-sm">
+                <p className="text-sm text-blue-800 font-medium">
+                  ✨ Click on pie segments to filter data by trip purpose. 
                   Work trips are the most common at 35% of total trips.
                 </p>
               </div>
@@ -209,10 +211,10 @@ export default function Dashboard() {
 
       {/* Interactive Recent Activity & Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2">
-        <Card>
+        <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest user activities and system updates</CardDescription>
+            <CardTitle className="text-blue-900">Recent Activity</CardTitle>
+            <CardDescription className="text-blue-600">Latest user activities and system updates</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div 
@@ -257,16 +259,16 @@ export default function Dashboard() {
               </div>
               <ArrowRight className="h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <Button variant="ghost" className="w-full mt-4 hover:bg-primary hover:text-primary-foreground transition-all">
+            <Button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 border-0">
               View All Activity
             </Button>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-white to-blue-50 border-blue-200 shadow-lg shadow-blue-50">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common tasks and shortcuts</CardDescription>
+            <CardTitle className="text-blue-900">Quick Actions</CardTitle>
+            <CardDescription className="text-blue-600">Common tasks and shortcuts</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div 
@@ -290,7 +292,7 @@ export default function Dashboard() {
               <span className="text-sm group-hover:text-primary transition-colors">Trip Analytics</span>
               <Badge variant="secondary" className="group-hover:bg-primary group-hover:text-primary-foreground transition-all">New</Badge>
             </div>
-            <Button className="w-full mt-4 hover:scale-105 transition-all duration-200">
+            <Button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 border-0">
               View All Actions
             </Button>
           </CardContent>
