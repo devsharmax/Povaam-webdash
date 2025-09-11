@@ -40,12 +40,31 @@ export default function TripsByDayChart() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
     plugins: {
       legend: {
         display: false,
       },
       title: {
         display: false,
+      },
+      tooltip: {
+        backgroundColor: 'hsl(var(--popover))',
+        titleColor: 'hsl(var(--popover-foreground))',
+        bodyColor: 'hsl(var(--popover-foreground))',
+        borderColor: 'hsl(var(--border))',
+        borderWidth: 1,
+        callbacks: {
+          title: function(context: any) {
+            return `${context[0].label}`;
+          },
+          label: function(context: any) {
+            return `${context.parsed.y} trips recorded`;
+          }
+        }
       },
     },
     scales: {
@@ -66,6 +85,18 @@ export default function TripsByDayChart() {
           color: 'hsl(var(--muted-foreground))',
         },
       },
+    },
+    onHover: (event: any, activeElements: any) => {
+      event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
+    },
+    onClick: (event: any, activeElements: any) => {
+      if (activeElements.length > 0) {
+        const dataIndex = activeElements[0].index;
+        const day = last7Days[dataIndex];
+        const trips = tripsData[dataIndex];
+        console.log(`Clicked on ${day}: ${trips} trips`);
+        // Add your click handler logic here
+      }
     },
   };
 
